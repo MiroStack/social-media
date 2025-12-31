@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SocialServiceImp implements SocialService {
@@ -22,4 +23,16 @@ public class SocialServiceImp implements SocialService {
     public SocialUser saveUser(SocialUser socialUser) {
         return socialUserRepository.save(socialUser);
     }
+
+    @Override
+    public SocialUser deleteUser(Long id) {
+
+        SocialUser user = socialUserRepository.findById(id)
+                        .orElseThrow(()-> new RuntimeException("User not found"));
+
+        socialUserRepository.delete(user);
+        return user;
+    }
+
+
 }

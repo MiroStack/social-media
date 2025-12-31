@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Objects;
+
 // one-to-one relationship user -> profile
 
 @Entity
@@ -24,5 +26,10 @@ public class SocialProfile {
         this.user = user;
         if (user.getSocialProfile() != this)
             user.setSocialProfile(this);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(id);
     }
 }
